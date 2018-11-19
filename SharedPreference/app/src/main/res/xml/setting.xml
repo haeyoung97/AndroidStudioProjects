@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:key="check1"
+        android:title="체크박스"
+        android:summary="체크박스 입니다. 쳌쳌" />
+    <EditTextPreference
+        android:key="text1"
+        android:title="당신의 이름"
+        android:summary="당신의 이름을 입력해주세요." />
+
+</PreferenceScreen>
