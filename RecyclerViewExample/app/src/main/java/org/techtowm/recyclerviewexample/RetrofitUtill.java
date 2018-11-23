@@ -1,11 +1,14 @@
 package org.techtowm.recyclerviewexample;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.io.File;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -17,6 +20,27 @@ public class RetrofitUtill {
             .baseUrl("http://purplebeen.kr:3000")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
+
+    public static Retrofit getLoginRetrofit(Context context){
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(chain->{
+            Request original = chain.request();
+            String token = SharedPreferenceUtil.getPreference(context,"token");
+            Request request = original.newBuilder()
+                    .header("authorization",token)
+                    .method(original.method(), original.body())
+                    .build();
+            return chain.proceed(request);
+        });
+
+        OkHttpClient client = httpClient.build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://purplebeen.kr:3000")
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build();
+        return retrofit;
+    }
 
     public static MultipartBody.Part createMultipartBody(@NonNull File file, String name){
         RequestBody mFile = RequestBody.create(MediaType.parse("images/*"),file);

@@ -12,6 +12,12 @@ public class Diary {
         this.date = date;
     }
 
+    public Diary(String title, String content, String username){
+        this.title = title;
+        this.content = content;
+        this.username = username;
+    }
+
     public String getTitle() {
         return title;
     }

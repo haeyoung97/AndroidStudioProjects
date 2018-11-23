@@ -13,5 +13,5 @@ public interface UserService {
     public Call<ResultGet> register(@Part("data") User user, @Part MultipartBody.Part profile);
 
     @POST("/sign")
-    public Call<Result> login(@Body User user);
+    public Call<LoginResponse> login(@Body User user);
 }
